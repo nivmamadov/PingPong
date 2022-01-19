@@ -30,5 +30,7 @@ namespace PingPong.Server
             _listeningSocket.Bind(_ipEndpoint);
             _listeningSocket.Listen();
         }
+
+
     }
 }
