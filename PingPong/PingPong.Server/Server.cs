@@ -7,7 +7,7 @@ using System.Text;
 
 namespace PingPong.Server
 {
-    public class Server<T>
+    public class Server
     {
         private Socket _listeningSocket;
         private Socket _clientSocket; 
@@ -17,7 +17,7 @@ namespace PingPong.Server
 
         private int _port;
 
-        public Server(int port, IOutput<T> output)
+        public Server(int port, IOutput<string> output)
         {
             _port = port;
 
@@ -34,35 +34,38 @@ namespace PingPong.Server
             _listeningSocket.Bind(_ipEndpoint);
             _listeningSocket.Listen();
 
-            _clientSocket = _listeningSocket.Accept();
-
-            byte[] bytes = new byte[1024];
-            string recievedData = null;
-
-            while (true)
-            {
-                int numByte = _clientSocket.Receive(bytes);
-
-                recievedData += Encoding.ASCII.GetString(bytes, 0, numByte);
-
-                if(recievedData.IndexOf("<EOF>") > -1)
-                {
-                    break;
-                }
-            }
-
-            Console.WriteLine($"Client has sent {recievedData}.");
-
-            SendMessageToClient("test message");
-
-            _clientSocket.Shutdown(SocketShutdown.Both);
-            _clientSocket.Close();
+            GetMessageFromClient();
         }
 
         public void SendMessageToClient(string message)
         {
             byte[] messageBytes = Encoding.ASCII.GetBytes(message);
             _clientSocket.Send(messageBytes);
+        }
+
+        public void GetMessageFromClient()
+        {
+            while (true)
+            {
+                _clientSocket = _listeningSocket.Accept();
+
+                byte[] bytes = new byte[1024];
+                string recievedData = null;
+
+                while (true)
+                {
+                    int numByte = _clientSocket.Receive(bytes);
+
+                    recievedData += Encoding.ASCII.GetString(bytes, 0, numByte);
+                }
+
+                Console.WriteLine($"Client has sent {recievedData}.");
+
+                SendMessageToClient("test message");
+
+                _clientSocket.Shutdown(SocketShutdown.Both);
+                _clientSocket.Close();
+            }
         }
     }
 }
