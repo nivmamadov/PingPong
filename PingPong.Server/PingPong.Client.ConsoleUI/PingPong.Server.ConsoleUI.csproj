@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PingPong.Client.UI\PingPong.Server.UI.csproj" />
+    <ProjectReference Include="..\PingPong.Server.BL\PingPong.Server.BL.csproj" />
   </ItemGroup>
 
 </Project>
