@@ -3,17 +3,12 @@ using PingPong.Server.BL.Communicator.Abstractions;
 using PingPong.Server.BL.Connectors.Abstractions;
 using PingPong.Server.BL.Listeners;
 using PingPong.Server.BL.Listeners.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PingPong.Server.BL.Connectors
 {
-    public class SocketConnector:IConnector
+    public class SocketConnector : IConnector
     {
         private Socket _listeningSocket;
         private IPHostEntry _ipHostEntry;
@@ -42,7 +37,7 @@ namespace PingPong.Server.BL.Connectors
 
         public void TerminateConnection()
         {
-            _listeningSocket.Close();  
+            _listeningSocket.Close();
             _listeningSocket.Shutdown(SocketShutdown.Both);
         }
 

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PingPong.Server.UI.Abstractions
+﻿namespace PingPong.Server.UI.Abstractions
 {
     public interface IOutput<T>
     {

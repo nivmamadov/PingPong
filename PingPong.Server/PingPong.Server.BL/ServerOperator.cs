@@ -3,23 +3,18 @@ using PingPong.Server.BL.Connectors.Abstractions;
 using PingPong.Server.BL.Converters.Abstractions;
 using PingPong.Server.BL.Listeners.Abstractions;
 using PingPong.Server.UI.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PingPong.Server.BL
 {
-    public class ServerOperator<T, K>
+    public class ServerOperator<K>
     {
         private IListener _serverListener;
         private IConnector _serverConnector;
         private ICommunicator _serverCommunicator;
-        private IConverter<T> _serverConverter;
         private IOutput<K> _serverOutput;
+        private IConverter _serverConverter;
 
-        public ServerOperator(IConnector connector, IConverter<T> converter, IOutput<K> output)
+        public ServerOperator(IConnector connector, IOutput<K> output, IConverter converter)
         {
             _serverConnector = connector;
 
@@ -30,15 +25,29 @@ namespace PingPong.Server.BL
 
             _serverListener.Bind();
 
-            _serverConverter = converter;
             _serverOutput = output;
 
             _serverListener.Listen();
         }
 
-        public void Send(T obj)
+        public void Send(object obj, bool needsConversion, IConverter optionalConverter)
         {
-            _serverCommunicator.Send(_serverConverter.Convert(obj)); 
+            if (needsConversion)
+            {
+                if (optionalConverter == null)
+                {
+                    _serverCommunicator.Send(_serverConverter.Convert(obj));
+
+                }
+                else
+                {
+                    _serverCommunicator.Send(optionalConverter.Convert(obj));
+                }
+            }
+            else
+            {
+                _serverCommunicator.Send((byte[])obj);
+            }
         }
 
         public byte[] Recieve()
