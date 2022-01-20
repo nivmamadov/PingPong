@@ -1,4 +1,4 @@
-﻿namespace PingPong.Server.BL.Communicator.Abstractions
+﻿namespace PingPong.Server.BL.Communicators.Abstractions
 {
     public interface ICommunicator
     {

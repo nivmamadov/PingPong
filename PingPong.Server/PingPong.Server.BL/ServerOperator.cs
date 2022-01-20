@@ -1,4 +1,4 @@
-﻿using PingPong.Server.BL.Communicator.Abstractions;
+﻿using PingPong.Server.BL.Communicators.Abstractions;
 using PingPong.Server.BL.Connectors.Abstractions;
 using PingPong.Server.BL.Converters.Abstractions;
 using PingPong.Server.BL.Listeners.Abstractions;
@@ -11,8 +11,8 @@ namespace PingPong.Server.BL
         private IListener _serverListener;
         private IConnector _serverConnector;
         private ICommunicator _serverCommunicator;
-        private IOutput<K> _serverOutput;
         private IConverter _serverConverter;
+        private IOutput<K> _serverOutput;
 
         public ServerOperator(IConnector connector, IOutput<K> output, IConverter converter)
         {
@@ -52,7 +52,8 @@ namespace PingPong.Server.BL
 
         public byte[] Recieve()
         {
-            return _serverCommunicator.Recieve();
+            byte[] clientMessage = _serverCommunicator.Recieve();
+            return clientMessage;
         }
 
         public void CloseServer()

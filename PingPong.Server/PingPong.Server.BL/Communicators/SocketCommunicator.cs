@@ -1,7 +1,7 @@
-﻿using PingPong.Server.BL.Communicator.Abstractions;
+﻿using PingPong.Server.BL.Communicators.Abstractions;
 using System.Net.Sockets;
 
-namespace PingPong.Server.BL.Communicator
+namespace PingPong.Server.BL.Communicators
 {
     public class SocketCommunicator : ICommunicator
     {
@@ -14,7 +14,10 @@ namespace PingPong.Server.BL.Communicator
         }
         public byte[] Recieve()
         {
-            _clientSocket = _communicatingSocket.Accept();
+            if(_clientSocket == null)
+            {
+                _clientSocket = _communicatingSocket.Accept();
+            }
 
             byte[] bytes = new byte[1024];
             _clientSocket.Receive(bytes);

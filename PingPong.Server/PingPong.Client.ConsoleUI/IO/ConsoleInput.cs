@@ -1,4 +1,4 @@
-﻿using PingPong.Server.UI.IO.Abstractions;
+﻿using PingPong.Server.UI.Abstractions;
 using System;
 
 namespace PingPong.Server.ConsoleUI.IO

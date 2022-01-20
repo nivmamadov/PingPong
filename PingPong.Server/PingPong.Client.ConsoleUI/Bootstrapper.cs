@@ -15,7 +15,10 @@ namespace PingPong.Server.ConsoleUI
             var stringToBytesConverter = new StringToBytesConverter();
 
             ServerOperator<string> serverOperator = new ServerOperator<string>(SocketConnection, consoleOutput, stringToBytesConverter);
-            serverOperator.Send(serverOperator.Recieve(), false, null);
+            while (true)
+            {
+                serverOperator.Send(serverOperator.Recieve(), false, null);
+            }
         }
     }
 }

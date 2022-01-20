@@ -1,4 +1,4 @@
-﻿namespace PingPong.Server.UI.IO.Abstractions
+﻿namespace PingPong.Server.UI.Abstractions
 {
     public interface IInput<T>
     {

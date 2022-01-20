@@ -1,5 +1,5 @@
-﻿using PingPong.Server.BL.Communicator;
-using PingPong.Server.BL.Communicator.Abstractions;
+﻿using PingPong.Server.BL.Communicators;
+using PingPong.Server.BL.Communicators.Abstractions;
 using PingPong.Server.BL.Connectors.Abstractions;
 using PingPong.Server.BL.Listeners;
 using PingPong.Server.BL.Listeners.Abstractions;

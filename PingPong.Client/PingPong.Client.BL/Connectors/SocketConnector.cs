@@ -1,16 +1,12 @@
-﻿using PingPong.Client.BL.Communicators.Abstractions;
+﻿using PingPong.Client.BL.Communicators;
+using PingPong.Client.BL.Communicators.Abstractions;
 using PingPong.Client.BL.Connectors.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PingPong.Client.BL.Connectors
 {
-    public class SocketConnector:IConnector
+    public class SocketConnector : IConnector
     {
         private IPHostEntry _ipHostEntry;
         private IPAddress _ipAddress;
@@ -33,7 +29,7 @@ namespace PingPong.Client.BL.Connectors
 
         public ICommunicator GetConnectionCommunicator()
         {
-            throw new NotImplementedException();
+            return new SocketCommunicator(_clientSocket);
         }
 
         public void TerminateConnection()

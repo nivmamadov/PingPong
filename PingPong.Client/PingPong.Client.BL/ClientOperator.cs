@@ -2,11 +2,6 @@
 using PingPong.Client.BL.Connectors.Abstractions;
 using PingPong.Client.BL.Converters.Abstractions;
 using PingPong.Client.UI.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PingPong.Client.BL
 {
@@ -17,15 +12,15 @@ namespace PingPong.Client.BL
         private IConverter _clientConverter;
         private IOutput<K> _clientOutput;
 
-        public ClientOperator(IConnector serverConnector, ICommunicator serverCommunicator, IConverter serverConverter, IOutput<K> serverOutput)
+        public ClientOperator(IConnector clientConnector, IConverter clientConverter, IOutput<K> clientOutput)
         {
-            _clientConnector = serverConnector;
+            _clientConnector = clientConnector;
             _clientConnector.Connect();
 
             _clientCommunicator = _clientConnector.GetConnectionCommunicator();
 
-            _clientConverter = serverConverter;
-            _clientOutput = serverOutput;
+            _clientConverter = clientConverter;
+            _clientOutput = clientOutput;
         }
 
         public void Send(object obj, bool needsConversion, IConverter optionalConverter)
