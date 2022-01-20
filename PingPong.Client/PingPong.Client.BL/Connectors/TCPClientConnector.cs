@@ -20,12 +20,10 @@ namespace PingPong.Client.BL.Connectors
         {
             _hostname = hostname;
             _port = port;
-
-            _tcpClient = new TcpClient();
         }
         public void Connect()
         {
-            _tcpClient.Connect(_hostname, _port);
+            _tcpClient = new TcpClient(_hostname, _port);
             _clientCommunicator = new TCPClientCommunicator(_tcpClient);
         }
 

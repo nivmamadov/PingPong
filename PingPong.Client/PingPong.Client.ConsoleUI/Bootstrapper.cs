@@ -10,7 +10,7 @@ namespace PingPong.Client.ConsoleUI
     {
         public void Activate()
         {
-            var clientConnector = new SocketConnector("192.168.56.1", 3000);
+            var clientConnector = new TCPClientConnector("192.168.56.1", 3000);
             var stringToBytesConverter = new StringToBytesConverter();
             var consoleOutput = new ConsoleOutput();
             var consoleInput = new ConsoleInput();

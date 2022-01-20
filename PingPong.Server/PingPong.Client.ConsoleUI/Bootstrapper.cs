@@ -11,7 +11,7 @@ namespace PingPong.Server.ConsoleUI
         {
             var consoleInput = new ConsoleInput();
             var consoleOutput = new ConsoleOutput();
-            var SocketConnection = new SocketConnector(3000);
+            var SocketConnection = new TcpListenerConnector("192.168.56.1", 3000);
             var stringToBytesConverter = new StringToBytesConverter();
 
             ServerOperator<string> serverOperator = new ServerOperator<string>(SocketConnection, consoleOutput, stringToBytesConverter);
