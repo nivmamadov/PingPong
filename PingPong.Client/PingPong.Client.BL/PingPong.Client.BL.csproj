@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -6,13 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PingPong.Client.UI\PingPong.Client.UI.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Communicators\Abstractions\" />
-    <Folder Include="Connectors\Abstractions\" />
-    <Folder Include="Converters\" />
-    <Folder Include="Listeners\" />
   </ItemGroup>
 
 </Project>
