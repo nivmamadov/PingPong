@@ -1,8 +1,10 @@
-﻿namespace PingPong.Client.BL.Communicators.Abstractions
+﻿using System.Threading.Tasks;
+
+namespace PingPong.Client.BL.Communicators.Abstractions
 {
     public interface ICommunicator
     {
-        public byte[] Recieve();
-        public void Send(byte[] data);
+        public Task<byte[]> Recieve();
+        public Task Send(byte[] data);
     }
 }

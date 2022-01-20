@@ -1,11 +1,13 @@
-﻿namespace PingPong.Server.ConsoleUI
+﻿using System.Threading.Tasks;
+
+namespace PingPong.Server.ConsoleUI
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             Bootstrapper bootstrapper = new Bootstrapper();
-            bootstrapper.Activate();
+            await bootstrapper.Activate();
         }
     }
 }

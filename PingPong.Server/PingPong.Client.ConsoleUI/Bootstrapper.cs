@@ -2,23 +2,37 @@
 using PingPong.Server.BL.Connectors;
 using PingPong.Server.BL.Converters;
 using PingPong.Server.ConsoleUI.IO;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace PingPong.Server.ConsoleUI
 {
     public class Bootstrapper
     {
-        public void Activate()
+        public async Task Activate()
         {
             var consoleInput = new ConsoleInput();
             var consoleOutput = new ConsoleOutput();
             var SocketConnection = new TcpListenerConnector("192.168.56.1", 3000);
             var stringToBytesConverter = new StringToBytesConverter();
 
-            ServerOperator<string> serverOperator = new ServerOperator<string>(SocketConnection, consoleOutput, stringToBytesConverter);
-            while (true)
+            ServerOperator serverOperator = new ServerOperator(SocketConnection, stringToBytesConverter);
+
+            await Task.Run(() =>
             {
-                serverOperator.Send(serverOperator.Recieve(), false, null);
-            }
+                while (true)
+                {
+                    var clientMessageByteArr = serverOperator.Recieve();
+
+                    var clientMessage = Encoding.UTF8.GetString(clientMessageByteArr);
+
+                    consoleOutput.SendOutput(clientMessage);
+
+                    serverOperator.Send(clientMessage, true);
+
+                    serverOperator.ServerCommunicator.CloseCommunication();
+                }
+            });
         }
     }
 }

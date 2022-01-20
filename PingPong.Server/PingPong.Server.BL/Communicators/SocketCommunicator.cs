@@ -1,5 +1,6 @@
 ﻿using PingPong.Server.BL.Communicators.Abstractions;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 
 namespace PingPong.Server.BL.Communicators
 {
@@ -12,14 +13,16 @@ namespace PingPong.Server.BL.Communicators
         {
             _communicatingSocket = communicatingSocket;
         }
+
+        public void CloseCommunication()
+        {
+            _clientSocket.Close();
+        }
+
         public byte[] Recieve()
         {
-            if(_clientSocket == null)
-            {
-                _clientSocket = _communicatingSocket.Accept();
-            }
-
             byte[] bytes = new byte[1024];
+            _clientSocket = _communicatingSocket.Accept();
             _clientSocket.Receive(bytes);
 
             return bytes;

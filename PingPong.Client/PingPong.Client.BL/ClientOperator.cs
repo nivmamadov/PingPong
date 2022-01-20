@@ -2,6 +2,7 @@
 using PingPong.Client.BL.Connectors.Abstractions;
 using PingPong.Client.BL.Converters.Abstractions;
 using PingPong.Client.UI.Abstractions;
+using System.Threading.Tasks;
 
 namespace PingPong.Client.BL
 {
@@ -23,29 +24,29 @@ namespace PingPong.Client.BL
             _clientOutput = clientOutput;
         }
 
-        public void Send(object obj, bool needsConversion, IConverter optionalConverter)
+        public async Task Send(object obj, bool needsConversion, IConverter optionalConverter)
         {
             if (needsConversion)
             {
                 if (optionalConverter == null)
                 {
-                    _clientCommunicator.Send(_clientConverter.Convert(obj));
+                    await _clientCommunicator.Send(_clientConverter.Convert(obj));
 
                 }
                 else
                 {
-                    _clientCommunicator.Send(optionalConverter.Convert(obj));
+                    await _clientCommunicator.Send(optionalConverter.Convert(obj));
                 }
             }
             else
             {
-                _clientCommunicator.Send((byte[])obj);
+                await _clientCommunicator.Send((byte[])obj);
             }
         }
 
-        public byte[] Recieve()
+        public async Task<byte[]> Recieve()
         {
-            return _clientCommunicator.Recieve();
+            return await _clientCommunicator.Recieve();
         }
 
         public void ShutdownClient()

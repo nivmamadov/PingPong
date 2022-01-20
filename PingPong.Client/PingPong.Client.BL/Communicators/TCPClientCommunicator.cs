@@ -17,16 +17,16 @@ namespace PingPong.Client.BL.Communicators
             _tcpClient = tcpClient; 
             ClientStream = tcpClient.GetStream();
         }
-        public byte[] Recieve()
+        public async Task<byte[]> Recieve()
         {
             byte[] response = new byte[1024];
-            ClientStream.Read(response, 0, response.Length);
-            return response;
+            int responseBytes = await ClientStream.ReadAsync(response, 0, response.Length);
+            return response[..responseBytes];
         }
 
-        public void Send(byte[] data)
+        public async Task Send(byte[] data)
         {
-            ClientStream.Write(data, 0, data.Length);
+            await ClientStream.WriteAsync(data, 0, data.Length);
         }
     }
 }

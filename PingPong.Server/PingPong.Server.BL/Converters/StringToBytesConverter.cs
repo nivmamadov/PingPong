@@ -7,7 +7,7 @@ namespace PingPong.Server.BL.Converters
     {
         public byte[] Convert(object valueToConvert)
         {
-            return Encoding.ASCII.GetBytes(valueToConvert.ToString());
+            return Encoding.UTF8.GetBytes(valueToConvert.ToString());
         }
     }
 }

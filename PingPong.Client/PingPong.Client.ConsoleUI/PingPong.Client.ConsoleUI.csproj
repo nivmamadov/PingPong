@@ -10,4 +10,8 @@
     <ProjectReference Include="..\PingPong.Client.UI\PingPong.Client.UI.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
 </Project>

@@ -1,5 +1,6 @@
 ﻿using PingPong.Client.BL.Communicators.Abstractions;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 
 namespace PingPong.Client.BL.Communicators
 {
@@ -12,17 +13,18 @@ namespace PingPong.Client.BL.Communicators
             _clientSocket = clientSocket;
         }
 
-        public byte[] Recieve()
+        public async Task<byte[]> Recieve()
         {
-            byte[] messageReceived = new byte[1024];
-            _clientSocket.Receive(messageReceived);
+            var messageReceived = new byte[1024];
+            var messageRecievedLength = _clientSocket.Receive(messageReceived);
 
-            return messageReceived;
+            return await Task.FromResult(messageReceived[..messageRecievedLength]);
         }
 
-        public void Send(byte[] data)
+        public async Task Send(byte[] data)
         {
             _clientSocket.Send(data);
+            await Task.CompletedTask;
         }
     }
 }

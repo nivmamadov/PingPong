@@ -20,22 +20,26 @@ namespace PingPong.Server.BL.Communicators
         }
 
         public byte[] Recieve()
-        {
-            if (_client == null)
-            {
-                _client = _server.AcceptTcpClient();
-                _clientStream = _client.GetStream();
-            }
+        { 
+            _client = _server.AcceptTcpClient();
 
-            byte[] bytes = new byte[1024];
+            _clientStream = _client.GetStream();
 
-            _clientStream.Read(bytes, 0, bytes.Length);
-            return bytes;
+            byte[] clientInquiry = new byte[1024];
+            int clientInquiryBytes = _clientStream.Read(clientInquiry, 0, clientInquiry.Length);
+
+            return clientInquiry[..clientInquiryBytes];
         }
 
         public void Send(byte[] data)
         {
             _clientStream.Write(data, 0, data.Length);
+        }
+
+        public void CloseCommunication()
+        {
+            _clientStream.Close();
+            _client.Close();
         }
     }
 }

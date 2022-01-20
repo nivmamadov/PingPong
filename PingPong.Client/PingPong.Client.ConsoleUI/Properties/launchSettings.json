@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PingPong.Client.ConsoleUI": {
+      "commandName": "Project",
+      "commandLineArgs": "192.168.56.1:3000"
+    }
+  }
+}
