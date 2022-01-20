@@ -16,17 +16,17 @@ namespace PingPong.Server.BL
 
         public ServerOperator(IConnector connector, IOutput<K> output, IConverter converter)
         {
-            _serverConnector = connector;
+            _serverOutput = output;
 
+            _serverConverter = converter; 
+
+            _serverConnector = connector;
             _serverConnector.Connect();
 
             _serverCommunicator = _serverConnector.GetConnectionCommunicator();
             _serverListener = _serverConnector.GetConnectionListener();
 
             _serverListener.Bind();
-
-            _serverOutput = output;
-
             _serverListener.Listen();
         }
 
@@ -53,11 +53,6 @@ namespace PingPong.Server.BL
         public byte[] Recieve()
         {
             return _serverCommunicator.Recieve();
-        }
-
-        public void Output(K output)
-        {
-            _serverOutput.SendOutput(output);
         }
 
         public void CloseServer()
