@@ -4,6 +4,5 @@
     {
         public byte[] Recieve();
         public void Send(byte[] data);
-
     }
 }
